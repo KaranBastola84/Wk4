@@ -37,5 +37,25 @@ class Program
 
         // Display the static field value (total student count)
         Console.WriteLine($"Total number of students: {Student.studentCount}");
+
+        Console.WriteLine("\n--- Calculator Operations ---");
+
+        // Create a Calculator object
+        Calculator calculator = new Calculator();
+
+        // Call PrintWelcome method
+        calculator.PrintWelcome();
+
+        // Call Add method and print the result
+        int additionResult = calculator.Add(10, 5);
+        Console.WriteLine($"Addition of 10 and 5: {additionResult}");
+
+        // Call Multiply method with both parameters and print the result
+        int multiplicationResult1 = calculator.Multiply(10, 5);
+        Console.WriteLine($"Multiplication of 10 and 5: {multiplicationResult1}");
+
+        // Call Multiply method with only one parameter (using default value for num2)
+        int multiplicationResult2 = calculator.Multiply(10);
+        Console.WriteLine($"Multiplication of 10 and 1 (default): {multiplicationResult2}");
     }
 }
