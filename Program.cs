@@ -83,5 +83,26 @@ class Program
 
         int sum3 = paramDemo.SumAll(100);
         Console.WriteLine($"Sum of 100: {sum3}");
+
+        Console.WriteLine("\n--- Player Constructor Demo ---");
+
+        // Create first player object using default constructor
+        Console.WriteLine("Creating Player 1 with default constructor:");
+        Player player1 = new Player();
+
+        // Manually assign values to player1 fields
+        player1.playerName = "Guest";
+        player1.level = 1;
+        player1.health = 100;
+
+        // Display field values of player1 object
+        Console.WriteLine($"Player 1 - Name: {player1.playerName}, Level: {player1.level}, Health: {player1.health}");
+
+        // Create second player object using parameterized constructor
+        Console.WriteLine("\nCreating Player 2 with parameterized constructor:");
+        Player player2 = new Player("WarriorKing", 25, 500);
+
+        // Display field values of player2 object
+        Console.WriteLine($"Player 2 - Name: {player2.playerName}, Level: {player2.level}, Health: {player2.health}");
     }
 }
