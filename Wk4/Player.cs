@@ -4,7 +4,7 @@ namespace Wk4.Wk4
     public class Player
     {
         // Instance field: Player's name
-        public string playerName;
+        public string? playerName;
 
         // Instance field: Player's level
         public int level;

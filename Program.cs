@@ -150,5 +150,62 @@ class Program
         Console.WriteLine($"Title: {title}");
         Console.WriteLine($"Author: {author}");
         Console.WriteLine($"Price: ${price}");
+
+        Console.WriteLine("\n--- Debugging Exercise: Percentage Calculation ---");
+
+        // Ask user to input marks
+        Console.Write("Enter marks obtained: ");
+        string? marksInput = Console.ReadLine();
+
+        // Ask user to input total marks
+        Console.Write("Enter total marks: ");
+        string? totalInput = Console.ReadLine();
+
+        // Use TryParse to safely convert string inputs to integers
+        int marks = 0;
+        int total = 0;
+        bool isMarksValid = int.TryParse(marksInput, out marks);
+        bool isTotalValid = int.TryParse(totalInput, out total);
+
+        // Check if both inputs are valid
+        if (isMarksValid && isTotalValid && total != 0)
+        {
+            // SET BREAKPOINT HERE - Before calculation (Line with this comment)
+            // This is where you should set the first breakpoint to observe variable values
+
+            // Calculate percentage (BUGGY CODE - integer division issue)
+            double percentage = marks / total * 100;
+
+            // SET BREAKPOINT HERE - After calculation (Line with this comment)
+            // This is where you should set the second breakpoint to observe the result
+
+            // Print the percentage
+            Console.WriteLine($"Percentage: {percentage}%");
+
+            // DEBUGGING ANALYSIS:
+            // WHY IS THE OUTPUT INCORRECT?
+            // - When dividing two integers (marks / total), C# performs integer division
+            // - Integer division truncates the decimal part (e.g., 85/100 = 0, not 0.85)
+            // - Then multiplying by 100 gives: 0 * 100 = 0
+            // - This results in incorrect percentage (0% instead of 85%)
+
+            // HOW TO CORRECT THE PROGRAM?
+            // Solution 1: Cast one operand to double before division
+            // double percentage = (double)marks / total * 100;
+
+            // Solution 2: Cast both operands to double
+            // double percentage = (double)marks / (double)total * 100;
+
+            // Solution 3: Multiply first, then divide (but may cause overflow for large numbers)
+            // double percentage = (double)(marks * 100) / total;
+
+            Console.WriteLine("\n--- CORRECTED VERSION ---");
+            double correctPercentage = (double)marks / total * 100;
+            Console.WriteLine($"Correct Percentage: {correctPercentage}%");
+        }
+        else
+        {
+            Console.WriteLine("Invalid input! Please enter valid integers and ensure total is not zero.");
+        }
     }
 }
