@@ -104,5 +104,51 @@ class Program
 
         // Display field values of player2 object
         Console.WriteLine($"Player 2 - Name: {player2.playerName}, Level: {player2.level}, Health: {player2.health}");
+
+        Console.WriteLine("\n--- Enum DayType Demo ---");
+
+        // Ask user to input the day
+        Console.Write("Enter a day (e.g., Sunday, Monday, etc.): ");
+        string? userInput = Console.ReadLine();
+
+        // Determine the day type based on user input
+        if (userInput != null)
+        {
+            string day = userInput.Trim();
+            DayType dayType;
+
+            // Check if the day is Friday or Saturday (Weekend)
+            if (day.Equals("Friday", StringComparison.OrdinalIgnoreCase) ||
+                day.Equals("Saturday", StringComparison.OrdinalIgnoreCase))
+            {
+                dayType = DayType.Weekend;
+            }
+            else
+            {
+                dayType = DayType.Weekday;
+            }
+
+            // Print the day type
+            Console.WriteLine($"It is: {dayType}");
+        }
+
+        Console.WriteLine("\n--- Record Book Demo ---");
+
+        // Create first book object with initial values
+        Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", 15.99);
+        Console.WriteLine($"Book 1 - Title: {book1.title}, Author: {book1.author}, Price: ${book1.price}");
+
+        // Create second book object using 'with' expression to change title and price
+        Book book2 = book1 with { title = "1984", price = 12.99 };
+
+        // Print the value of first object (unchanged)
+        Console.WriteLine($"\nBook 1 (original) - Title: {book1.title}, Author: {book1.author}, Price: ${book1.price}");
+
+        // Deconstruct the second object into three variables
+        var (title, author, price) = book2;
+        Console.WriteLine($"\nBook 2 (deconstructed variables):");
+        Console.WriteLine($"Title: {title}");
+        Console.WriteLine($"Author: {author}");
+        Console.WriteLine($"Price: ${price}");
     }
 }
