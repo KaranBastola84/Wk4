@@ -57,5 +57,31 @@ class Program
         // Call Multiply method with only one parameter (using default value for num2)
         int multiplicationResult2 = calculator.Multiply(10);
         Console.WriteLine($"Multiplication of 10 and 1 (default): {multiplicationResult2}");
+
+        Console.WriteLine("\n--- Parameter Demo Operations ---");
+
+        // Create a ParameterDemo object
+        ParameterDemo paramDemo = new ParameterDemo();
+
+        // Demonstrate ref parameter - Increase method
+        int number = 20;
+        Console.WriteLine($"Original number: {number}");
+        paramDemo.Increase(ref number);
+        Console.WriteLine($"After Increase (ref parameter): {number}");
+
+        // Demonstrate out parameter - GetFullName method
+        string fullName;
+        paramDemo.GetFullName(out fullName);
+        Console.WriteLine($"Full Name (out parameter): {fullName}");
+
+        // Demonstrate params parameter - SumAll method with different number of arguments
+        int sum1 = paramDemo.SumAll(1, 2, 3, 4, 5);
+        Console.WriteLine($"Sum of 1, 2, 3, 4, 5: {sum1}");
+
+        int sum2 = paramDemo.SumAll(10, 20, 30);
+        Console.WriteLine($"Sum of 10, 20, 30: {sum2}");
+
+        int sum3 = paramDemo.SumAll(100);
+        Console.WriteLine($"Sum of 100: {sum3}");
     }
 }
