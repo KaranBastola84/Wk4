@@ -240,6 +240,42 @@ class Program
         // Display final balance
         Console.WriteLine($"\nFinal Balance: ${account.Balance}");
 
+        Console.WriteLine("\n--- Vehicle Inheritance Demo ---");
+
+        // Create an object of Car (derived class)
+        Car car = new Car("Toyota Camry", 180, 5);
+
+        // Create an object of Motorcycle (derived class)
+        Motorcycle motorcycle = new Motorcycle("Harley Davidson", 220, true);
+
+        // Demonstrate Car object
+        Console.WriteLine("\n--- Demonstrating Car ---");
+        // Call base class methods (code reusability)
+        car.Start();
+        car.Stop();
+        // Call overridden method to display car information
+        car.DisplayInfo();
+
+        // Demonstrate Motorcycle object
+        Console.WriteLine("\n--- Demonstrating Motorcycle ---");
+        // Call base class methods (code reusability)
+        motorcycle.Start();
+        motorcycle.Stop();
+        // Call overridden method to display motorcycle information
+        motorcycle.DisplayInfo();
+
+        // Demonstrate polymorphism - treating derived classes as base class
+        Console.WriteLine("\n--- Code Reusability Demo (Polymorphism) ---");
+        Vehicle vehicle1 = car;
+        Vehicle vehicle2 = motorcycle;
+
+        Console.WriteLine("\nCalling methods through base class reference:");
+        vehicle1.Start();
+        vehicle1.DisplayInfo();
+        Console.WriteLine();
+        vehicle2.Start();
+        vehicle2.DisplayInfo();
+
 
     }
 }
