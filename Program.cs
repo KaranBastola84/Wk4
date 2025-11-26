@@ -354,6 +354,42 @@ class Program
         vehicle4.StartEngine();
         vehicle4.StopEngine();
 
+        Console.WriteLine("\n--- Electronics Store OOP Demo ---");
+
+        // Create an ElectronicsStore object
+        ElectronicsStore store = new ElectronicsStore();
+
+        Console.WriteLine("\n--- Creating Electronic Devices ---");
+
+        // Create Laptop objects with brand and price
+        Laptop laptop1 = new Laptop("Dell XPS 15", 1499.99);
+        Laptop laptop2 = new Laptop("MacBook Pro", 2399.99);
+
+        // Create Smartphone objects with brand and price
+        Smartphone smartphone1 = new Smartphone("iPhone 15 Pro", 999.99);
+        Smartphone smartphone2 = new Smartphone("Samsung Galaxy S24", 899.99);
+
+        Console.WriteLine("\n--- Adding Devices to Store ---");
+
+        // Add devices to the store
+        store.AddDevice(laptop1);
+        store.AddDevice(smartphone1);
+        store.AddDevice(laptop2);
+        store.AddDevice(smartphone2);
+
+        // Display all device details with child-specific behavior
+        store.ShowAllDeviceDetails();
+
+        Console.WriteLine("\n--- Demonstrating Encapsulation ---");
+        Console.WriteLine($"Accessing laptop brand through property: {laptop1.Brand}");
+        Console.WriteLine($"Accessing laptop price through property: ${laptop1.Price}");
+
+        Console.WriteLine("\n--- Removing a Device ---");
+        store.RemoveDevice(smartphone2);
+
+        Console.WriteLine("\n--- Updated Store Inventory ---");
+        store.ShowAllDeviceDetails();
+
 
     }
 }
