@@ -276,6 +276,49 @@ class Program
         vehicle2.Start();
         vehicle2.DisplayInfo();
 
+        Console.WriteLine("\n--- Printer (Method Overloading) Demo ---");
+
+        // Create a Printer object
+        Printer printer = new Printer();
+
+        // Call the first overloaded method: Print(string message)
+        printer.Print("Hello, World!");
+
+        // Call the second overloaded method: Print(int number)
+        printer.Print(42);
+
+        // Call the third overloaded method: Print(string message, int count)
+        printer.Print("Good Morning", 3);
+
+        Console.WriteLine("\n--- Teacher (Method Overriding) Demo ---");
+
+        // Create an object of NepaliTeacher (derived class)
+        NepaliTeacher nepaliTeacher = new NepaliTeacher("Mr. Sharma");
+
+        // Create an object of EnglishTeacher (derived class)
+        EnglishTeacher englishTeacher = new EnglishTeacher("Ms. Smith");
+
+        // Demonstrate NepaliTeacher
+        Console.WriteLine("\n--- Nepali Teacher ---");
+        Console.WriteLine($"Teacher Name: {nepaliTeacher.Name}");
+        nepaliTeacher.Teaching(); // Calls overridden method
+        nepaliTeacher.SalaryInfo(); // Calls sealed method from base class
+
+        // Demonstrate EnglishTeacher
+        Console.WriteLine("\n--- English Teacher ---");
+        Console.WriteLine($"Teacher Name: {englishTeacher.Name}");
+        englishTeacher.Teaching(); // Calls base class method (not overridden)
+        englishTeacher.SalaryInfo(); // Calls sealed method from base class
+
+        // Demonstrate runtime polymorphism
+        Console.WriteLine("\n--- Runtime Polymorphism Demo ---");
+        Teacher teacher1 = nepaliTeacher;
+        Teacher teacher2 = englishTeacher;
+
+        Console.WriteLine("\nCalling methods through base class reference:");
+        teacher1.Teaching(); // Runtime polymorphism: calls NepaliTeacher's overridden method
+        teacher2.Teaching(); // Runtime polymorphism: calls base Teacher method
+
 
     }
 }
