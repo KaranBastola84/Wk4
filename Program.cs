@@ -319,6 +319,41 @@ class Program
         teacher1.Teaching(); // Runtime polymorphism: calls NepaliTeacher's overridden method
         teacher2.Teaching(); // Runtime polymorphism: calls base Teacher method
 
+        Console.WriteLine("\n--- Abstraction Demo ---");
+
+        // Create an object of AbstractCar (derived from abstract class)
+        AbstractCar car1 = new AbstractCar();
+
+        // Create an object of Bike (derived from abstract class)
+        Bike bike1 = new Bike();
+
+        // Demonstrate Car object
+        Console.WriteLine("\n--- Car Operations ---");
+        car1.Display(); // Call concrete method from abstract base class
+        car1.StartEngine(); // Call implemented abstract method
+        car1.StopEngine(); // Call implemented abstract method
+
+        // Demonstrate Bike object
+        Console.WriteLine("\n--- Bike Operations ---");
+        bike1.Display(); // Call concrete method from abstract base class
+        bike1.StartEngine(); // Call implemented abstract method
+        bike1.StopEngine(); // Call implemented abstract method
+
+        // Demonstrate abstraction through base class reference
+        Console.WriteLine("\n--- Abstraction with Base Class Reference ---");
+        AbstractVehicle vehicle3 = car1;
+        AbstractVehicle vehicle4 = bike1;
+
+        Console.WriteLine("\nUsing Car through AbstractVehicle reference:");
+        vehicle3.Display();
+        vehicle3.StartEngine();
+        vehicle3.StopEngine();
+
+        Console.WriteLine("\nUsing Bike through AbstractVehicle reference:");
+        vehicle4.Display();
+        vehicle4.StartEngine();
+        vehicle4.StopEngine();
+
 
     }
 }
