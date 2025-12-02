@@ -514,6 +514,120 @@ class Program
         Console.WriteLine("\n--- Numbers Divisible by 3 (using lambda) ---");
         NumberProcessor.ProcessNumbers(numbers, n => n % 3 == 0);
 
+        Console.WriteLine("\n========================================");
+        Console.WriteLine("         LINQ OPERATIONS DEMO");
+        Console.WriteLine("========================================");
+
+        // ===== LINQ PROJECTION (SELECT) =====
+        Console.WriteLine("\n--- LINQ Projection: Square Each Number ---");
+
+        // Create a list of integers
+        List<int> numbersList = new List<int> { 1, 2, 3, 4, 5 };
+        Console.WriteLine($"Original Numbers: {string.Join(", ", numbersList)}");
+
+        // Use LINQ Select to square each number
+        var squaredNumbers = numbersList.Select(n => n * n).ToList();
+
+        // Print the squared numbers
+        Console.WriteLine($"Squared Numbers: {string.Join(", ", squaredNumbers)}");
+
+        // Alternative: Using query syntax
+        var squaredQuery = (from n in numbersList
+                            select n * n).ToList();
+        Console.WriteLine($"Squared (Query Syntax): {string.Join(", ", squaredQuery)}");
+
+        // ===== LINQ FILTERING (WHERE) =====
+        Console.WriteLine("\n--- LINQ Filtering: Premium Books Above Rs. 1000 ---");
+
+        // Create a list of books with prices
+        List<Book> booksList = new List<Book>
+        {
+            new Book("The Great Gatsby", "F. Scott Fitzgerald", 750.00),
+            new Book("1984", "George Orwell", 1200.00),
+            new Book("To Kill a Mockingbird", "Harper Lee", 950.00),
+            new Book("Pride and Prejudice", "Jane Austen", 1500.00),
+            new Book("The Catcher in the Rye", "J.D. Salinger", 850.00),
+            new Book("Harry Potter", "J.K. Rowling", 1350.00),
+            new Book("The Hobbit", "J.R.R. Tolkien", 1100.00),
+            new Book("Animal Farm", "George Orwell", 600.00)
+        };
+
+        Console.WriteLine("\nAll Books in Bookstore:");
+        foreach (var book in booksList)
+        {
+            Console.WriteLine($"  {book}");
+        }
+
+        // Use LINQ Where to filter premium books (price > Rs. 1000)
+        var premiumBooks = booksList.Where(book => book.Price > 1000).ToList();
+
+        Console.WriteLine($"\nPremium Books (Price > Rs. 1000): {premiumBooks.Count} books found");
+        foreach (var book in premiumBooks)
+        {
+            Console.WriteLine($"  {book}");
+        }
+
+        // Alternative: Using query syntax
+        var premiumBooksQuery = (from book in booksList
+                                 where book.Price > 1000
+                                 select book).ToList();
+
+        Console.WriteLine($"\nPremium Books (Query Syntax): {premiumBooksQuery.Count} books");
+
+        // ===== LINQ SORTING (ORDERBY) =====
+        Console.WriteLine("\n--- LINQ Sorting: AAA Scholarship Students (Alphabetically) ---");
+
+        // Create a list of 10 students for AAA scholarship
+        List<Student> scholarshipStudents = new List<Student>
+        {
+            new Student("Zara Williams", "ISL001", 4.0),
+            new Student("Alice Johnson", "ISL002", 4.0),
+            new Student("Michael Brown", "ISL003", 4.0),
+            new Student("Emily Davis", "ISL004", 4.0),
+            new Student("David Wilson", "ISL005", 4.0),
+            new Student("Sarah Martinez", "ISL006", 4.0),
+            new Student("James Anderson", "ISL007", 4.0),
+            new Student("Olivia Taylor", "ISL008", 4.0),
+            new Student("Benjamin Moore", "ISL009", 4.0),
+            new Student("Emma White", "ISL010", 4.0)
+        };
+
+        Console.WriteLine("\nAAA Scholarship Students (Unsorted):");
+        foreach (var student in scholarshipStudents)
+        {
+            Console.WriteLine($"  {student}");
+        }
+
+        // Use LINQ OrderBy to sort students alphabetically by name
+        var sortedStudents = scholarshipStudents.OrderBy(s => s.Name).ToList();
+
+        Console.WriteLine("\nAAA Scholarship Students (Sorted Alphabetically):");
+        int rank = 1;
+        foreach (var student in sortedStudents)
+        {
+            Console.WriteLine($"  {rank}. {student}");
+            rank++;
+        }
+
+        // Alternative: Using query syntax
+        var sortedStudentsQuery = (from student in scholarshipStudents
+                                   orderby student.Name
+                                   select student).ToList();
+
+        Console.WriteLine("\nSorted Students (Query Syntax):");
+        foreach (var student in sortedStudentsQuery.Take(3))
+        {
+            Console.WriteLine($"  {student}");
+        }
+
+        // Bonus: OrderByDescending example
+        Console.WriteLine("\nStudents in Reverse Alphabetical Order:");
+        var reverseStudents = scholarshipStudents.OrderByDescending(s => s.Name).Take(3).ToList();
+        foreach (var student in reverseStudents)
+        {
+            Console.WriteLine($"  {student}");
+        }
+
 
     }
 }
