@@ -480,6 +480,40 @@ class Program
         double discount50 = PricingService.CalculateFinalPrice(price2, p => p / 2);
         Console.WriteLine($"${price2} with 50% off (lambda): ${discount50}");
 
+        Console.WriteLine("\n--- Func Delegate Demo (ProcessNumbers) ---");
+
+        // Create an array of numbers to process
+        int[] numbers = { 5, 12, 8, 3, 21, 15, 6, 18, 9, 11 };
+        Console.WriteLine($"Original Numbers: {string.Join(", ", numbers)}");
+
+        // Print only even numbers using Func delegate with named method
+        Console.WriteLine("\n--- Even Numbers (using method reference) ---");
+        NumberProcessor.ProcessNumbers(numbers, NumberProcessor.IsEven);
+
+        // Print only numbers greater than 10 using Func delegate with named method
+        Console.WriteLine("\n--- Numbers Greater Than 10 (using method reference) ---");
+        NumberProcessor.ProcessNumbers(numbers, NumberProcessor.IsGreaterThan10);
+
+        // Using lambda expressions with Func delegate
+        Console.WriteLine("\n--- Even Numbers (using lambda expression) ---");
+        NumberProcessor.ProcessNumbers(numbers, n => n % 2 == 0);
+
+        Console.WriteLine("\n--- Numbers Greater Than 10 (using lambda expression) ---");
+        NumberProcessor.ProcessNumbers(numbers, n => n > 10);
+
+        // Additional examples with different conditions
+        Console.WriteLine("\n--- Numbers Less Than 10 (using lambda) ---");
+        NumberProcessor.ProcessNumbers(numbers, n => n < 10);
+
+        Console.WriteLine("\n--- Odd Numbers (using lambda) ---");
+        NumberProcessor.ProcessNumbers(numbers, n => n % 2 != 0);
+
+        Console.WriteLine("\n--- Numbers Between 10 and 20 (using lambda) ---");
+        NumberProcessor.ProcessNumbers(numbers, n => n >= 10 && n <= 20);
+
+        Console.WriteLine("\n--- Numbers Divisible by 3 (using lambda) ---");
+        NumberProcessor.ProcessNumbers(numbers, n => n % 3 == 0);
+
 
     }
 }
