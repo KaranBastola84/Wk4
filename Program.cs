@@ -425,6 +425,61 @@ class Program
         Console.WriteLine($"Area: {rectangle2.GetArea()} square units");
         Console.WriteLine($"Perimeter: {rectangle2.GetPerimeter()} units");
 
+        Console.WriteLine("\n--- Calculate Delegate Demo ---");
+
+        // Create a Calculate delegate and assign the Add method
+        Calculate calculateDelegate = Calculator.Add;
+
+        // Call Add method using the delegate
+        int sum = calculateDelegate(25, 15);
+        Console.WriteLine($"Addition using delegate: 25 + 15 = {sum}");
+
+        // Reassign the delegate to the Subtract method
+        calculateDelegate = Calculator.Subtract;
+
+        // Call Subtract method using the delegate
+        int difference = calculateDelegate(25, 15);
+        Console.WriteLine($"Subtraction using delegate: 25 - 15 = {difference}");
+
+        Console.WriteLine("\n--- Discount Strategy Delegate Demo ---");
+
+        // Define original price
+        double originalPrice = 1000.00;
+        Console.WriteLine($"Original Price: ${originalPrice}");
+
+        // Call CalculateFinalPrice with FestivalDiscount strategy (20% off)
+        Console.WriteLine("\n--- Festival Discount (20% off) ---");
+        double festivalPrice = PricingService.CalculateFinalPrice(originalPrice, PricingService.FestivalDiscount);
+        Console.WriteLine($"Final Price after Festival Discount: ${festivalPrice}");
+
+        // Call CalculateFinalPrice with SeasonalDiscount strategy (10% off)
+        Console.WriteLine("\n--- Seasonal Discount (10% off) ---");
+        double seasonalPrice = PricingService.CalculateFinalPrice(originalPrice, PricingService.SeasonalDiscount);
+        Console.WriteLine($"Final Price after Seasonal Discount: ${seasonalPrice}");
+
+        // Call CalculateFinalPrice with NoDiscount strategy
+        Console.WriteLine("\n--- No Discount ---");
+        double regularPrice = PricingService.CalculateFinalPrice(originalPrice, PricingService.NoDiscount);
+        Console.WriteLine($"Final Price with No Discount: ${regularPrice}");
+
+        // Call CalculateFinalPrice with a Lambda expression (30% off)
+        Console.WriteLine("\n--- Lambda Expression Discount (30% off) ---");
+        double lambdaPrice = PricingService.CalculateFinalPrice(originalPrice, (price) => price - (price * 0.30));
+        Console.WriteLine($"Final Price with Lambda (30% discount): ${lambdaPrice}");
+
+        // Additional demo: Using different prices with lambda expressions
+        Console.WriteLine("\n--- More Lambda Expression Examples ---");
+        double price1 = 500.00;
+        double price2 = 1500.00;
+
+        // 15% discount using lambda
+        double discount15 = PricingService.CalculateFinalPrice(price1, p => p * 0.85);
+        Console.WriteLine($"${price1} with 15% off (lambda): ${discount15}");
+
+        // 50% discount using lambda
+        double discount50 = PricingService.CalculateFinalPrice(price2, p => p / 2);
+        Console.WriteLine($"${price2} with 50% off (lambda): ${discount50}");
+
 
     }
 }
