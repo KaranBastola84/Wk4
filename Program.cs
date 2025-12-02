@@ -628,6 +628,172 @@ class Program
             Console.WriteLine($"  {student}");
         }
 
+        Console.WriteLine("\n========================================");
+        Console.WriteLine("    LINQ ADVANCED OPERATIONS DEMO");
+        Console.WriteLine("========================================");
+
+        // ===== LINQ AGGREGATION OPERATORS =====
+        Console.WriteLine("\n--- LINQ Aggregation: Supermarket Daily Sales ---");
+
+        // Create a list of cashier sales for the day
+        List<CashierSales> cashierSalesList = new List<CashierSales>
+        {
+            new CashierSales("Ram Sharma", 101, 25000.50),
+            new CashierSales("Sita Thapa", 102, 32500.75),
+            new CashierSales("Hari Prasad", 103, 18750.00),
+            new CashierSales("Maya Singh", 104, 41200.25),
+            new CashierSales("Krishna Rai", 105, 29800.00),
+            new CashierSales("Gita Gurung", 106, 35600.50),
+            new CashierSales("Bikash Tamang", 107, 22400.00)
+        };
+
+        Console.WriteLine("\nDaily Sales Report:");
+        foreach (var cashier in cashierSalesList)
+        {
+            Console.WriteLine($"  {cashier}");
+        }
+
+        // Calculate total number of cashiers using Count()
+        int totalCashiers = cashierSalesList.Count();
+        Console.WriteLine($"\nTotal Number of Cashiers: {totalCashiers}");
+
+        // Calculate total sales using Sum()
+        double totalSales = cashierSalesList.Sum(c => c.DailySales);
+        Console.WriteLine($"Total Sales of the Day: Rs. {totalSales:F2}");
+
+        // Calculate highest sales using Max()
+        double highestSales = cashierSalesList.Max(c => c.DailySales);
+        Console.WriteLine($"Highest Sales: Rs. {highestSales:F2}");
+
+        // Find cashier with highest sales
+        var topCashier = cashierSalesList.FirstOrDefault(c => c.DailySales == highestSales);
+        Console.WriteLine($"Top Performer: {topCashier?.CashierName}");
+
+        // Calculate lowest sales using Min()
+        double lowestSales = cashierSalesList.Min(c => c.DailySales);
+        Console.WriteLine($"Lowest Sales: Rs. {lowestSales:F2}");
+
+        // Calculate average sales using Average()
+        double averageSales = cashierSalesList.Average(c => c.DailySales);
+        Console.WriteLine($"Average Sales: Rs. {averageSales:F2}");
+
+        // ===== LINQ QUANTIFIER OPERATORS (ANY/ALL) =====
+        Console.WriteLine("\n--- LINQ Quantifier: Election Commission Applicants ---");
+
+        // Create a list of applicants
+        List<Applicant> applicantsList = new List<Applicant>
+        {
+            new Applicant("Rajesh Kumar", 25, "12-345-678"),
+            new Applicant("Anjali Devi", 17, "12-345-679"),
+            new Applicant("Suresh Bahadur", 32, "12-345-680"),
+            new Applicant("Priya Sharma", 19, "12-345-681"),
+            new Applicant("Arjun Singh", 16, "12-345-682"),
+            new Applicant("Kritika Rai", 28, "12-345-683"),
+            new Applicant("Nabin Thapa", 21, "12-345-684")
+        };
+
+        Console.WriteLine("\nApplicants List:");
+        foreach (var applicant in applicantsList)
+        {
+            Console.WriteLine($"  {applicant}");
+        }
+
+        // Check if ANY applicant is under 18 using Any()
+        bool anyUnder18 = applicantsList.Any(a => a.Age < 18);
+        Console.WriteLine($"\nAre there any applicants under 18? {(anyUnder18 ? "YES" : "NO")}");
+
+        if (anyUnder18)
+        {
+            var under18List = applicantsList.Where(a => a.Age < 18).ToList();
+            Console.WriteLine("Applicants under 18:");
+            foreach (var applicant in under18List)
+            {
+                Console.WriteLine($"  {applicant}");
+            }
+        }
+
+        // Check if ALL applicants are above 16 using All()
+        bool allAbove16 = applicantsList.All(a => a.Age > 16);
+        Console.WriteLine($"\nAre all applicants above 16? {(allAbove16 ? "YES" : "NO")}");
+
+        if (!allAbove16)
+        {
+            var age16OrBelow = applicantsList.Where(a => a.Age <= 16).ToList();
+            Console.WriteLine("Applicants aged 16 or below:");
+            foreach (var applicant in age16OrBelow)
+            {
+                Console.WriteLine($"  {applicant}");
+            }
+        }
+
+        // Additional quantifier examples
+        bool anyAbove30 = applicantsList.Any(a => a.Age > 30);
+        Console.WriteLine($"\nAre there any applicants above 30? {(anyAbove30 ? "YES" : "NO")}");
+
+        bool allAbove15 = applicantsList.All(a => a.Age > 15);
+        Console.WriteLine($"Are all applicants above 15? {(allAbove15 ? "YES" : "NO")}");
+
+        // ===== LINQ ELEMENT OPERATORS (FIRST, LAST, FIRSTORDEFAULT) =====
+        Console.WriteLine("\n--- LINQ Element Operators: Music App Song Durations ---");
+
+        // Create a list of songs with durations in seconds
+        List<Music> playlist = new List<Music>
+        {
+            new Music("Shape of You", "Ed Sheeran", 234),           // 3:54
+            new Music("Blinding Lights", "The Weeknd", 200),        // 3:20
+            new Music("Bohemian Rhapsody", "Queen", 355),           // 5:55
+            new Music("Stairway to Heaven", "Led Zeppelin", 482),   // 8:02
+            new Music("Hotel California", "Eagles", 391),           // 6:31
+            new Music("Imagine", "John Lennon", 183),               // 3:03
+            new Music("November Rain", "Guns N' Roses", 537)        // 8:57
+        };
+
+        Console.WriteLine("\nPlaylist:");
+        foreach (var song in playlist)
+        {
+            Console.WriteLine($"  {song}");
+        }
+
+        // Find the FIRST song using First()
+        var firstSong = playlist.First();
+        Console.WriteLine($"\nFirst Song: {firstSong}");
+
+        // Find the LAST song using Last()
+        var lastSong = playlist.Last();
+        Console.WriteLine($"Last Song: {lastSong}");
+
+        // Find the first song with duration above 4 minutes (240 seconds) using First()
+        var firstSongAbove4Min = playlist.First(s => s.DurationInSeconds > 240);
+        Console.WriteLine($"\nFirst Song Above 4 Minutes: {firstSongAbove4Min}");
+
+        // Find the first song longer than 10 minutes (600 seconds) using FirstOrDefault()
+        // This returns null if no song matches (safe result)
+        var firstSongAbove10Min = playlist.FirstOrDefault(s => s.DurationInSeconds > 600);
+
+        if (firstSongAbove10Min != null)
+        {
+            Console.WriteLine($"\nFirst Song Above 10 Minutes: {firstSongAbove10Min}");
+        }
+        else
+        {
+            Console.WriteLine("\nFirst Song Above 10 Minutes: No song found (safe result with FirstOrDefault)");
+        }
+
+        // Additional element operator examples
+        Console.WriteLine("\n--- Additional Element Operator Examples ---");
+
+        // Last song with duration below 4 minutes
+        var lastSongBelow4Min = playlist.Last(s => s.DurationInSeconds < 240);
+        Console.WriteLine($"Last Song Below 4 Minutes: {lastSongBelow4Min}");
+
+        // FirstOrDefault for songs above 5 minutes (300 seconds)
+        var firstSongAbove5Min = playlist.FirstOrDefault(s => s.DurationInSeconds > 300);
+        Console.WriteLine($"First Song Above 5 Minutes: {firstSongAbove5Min?.SongTitle ?? "Not found"}");
+
+        // LastOrDefault example
+        var lastSongAbove9Min = playlist.LastOrDefault(s => s.DurationInSeconds > 540);
+        Console.WriteLine($"Last Song Above 9 Minutes: {lastSongAbove9Min?.SongTitle ?? "Not found"}");
+
 
     }
 }
