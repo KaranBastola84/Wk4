@@ -794,6 +794,134 @@ class Program
         var lastSongAbove9Min = playlist.LastOrDefault(s => s.DurationInSeconds > 540);
         Console.WriteLine($"Last Song Above 9 Minutes: {lastSongAbove9Min?.SongTitle ?? "Not found"}");
 
+        Console.WriteLine("\n========================================");
+        Console.WriteLine("  TRAVEL COMPANY - TOUR BOOKING REPORT");
+        Console.WriteLine("========================================");
+
+        // Create a list of tour bookings
+        List<TourBooking> tourBookings = new List<TourBooking>
+        {
+            new TourBooking("Ramesh Sharma", "Pokhara", 8500.00, 3, false),
+            new TourBooking("Anjali Thapa", "Dubai", 65000.00, 7, true),
+            new TourBooking("Suresh Kumar", "Chitwan", 12000.00, 5, false),
+            new TourBooking("Priya Singh", "Thailand", 45000.00, 6, true),
+            new TourBooking("Bikash Rai", "Mustang", 25000.00, 8, false),
+            new TourBooking("Sita Gurung", "Ilam", 6000.00, 2, false),
+            new TourBooking("Krishna Tamang", "Singapore", 75000.00, 5, true),
+            new TourBooking("Maya Shrestha", "Lumbini", 15000.00, 4, false),
+            new TourBooking("Hari Prasad", "Paris", 150000.00, 10, true),
+            new TourBooking("Gita Devi", "Kathmandu Valley", 9500.00, 3, false),
+            new TourBooking("Nabin Karki", "Maldives", 95000.00, 7, true),
+            new TourBooking("Kritika Bhatta", "Manang", 18000.00, 6, false),
+            new TourBooking("Arjun Basnet", "Malaysia", 55000.00, 8, true),
+            new TourBooking("Sunita Poudel", "Bardiya", 11000.00, 5, false)
+        };
+
+        Console.WriteLine("\n--- ALL TOUR BOOKINGS ---");
+        Console.WriteLine($"Total Bookings: {tourBookings.Count}");
+        foreach (var booking in tourBookings)
+        {
+            Console.WriteLine($"  {booking}");
+        }
+
+        // STEP 1: FILTER tours above Rs. 10,000 AND duration more than 4 days
+        Console.WriteLine("\n--- APPLYING FILTERS ---");
+        Console.WriteLine("Filter Criteria:");
+        Console.WriteLine("  1. Price > Rs. 10,000");
+        Console.WriteLine("  2. Duration > 4 days");
+
+        var filteredTours = tourBookings
+            .Where(t => t.Price > 10000 && t.DurationInDays > 4)
+            .ToList();
+
+        Console.WriteLine($"\nFiltered Results: {filteredTours.Count} bookings found");
+        foreach (var tour in filteredTours)
+        {
+            Console.WriteLine($"  {tour}");
+        }
+
+        // STEP 2: TRANSFORM (Project) the filtered list into TourSummary
+        Console.WriteLine("\n--- TRANSFORMING DATA ---");
+        Console.WriteLine("Creating summary with CustomerName, Destination, and Category");
+
+        var tourSummaries = filteredTours
+            .Select(t => new TourSummary(
+                t.CustomerName,
+                t.Destination,
+                t.IsInternational ? "International" : "Domestic",
+                t.Price
+            ))
+            .ToList();
+
+        Console.WriteLine($"\nTransformed Data: {tourSummaries.Count} records");
+
+        // STEP 3: SORT by Category (Domestic first, then International), then by Price
+        Console.WriteLine("\n--- SORTING DATA ---");
+        Console.WriteLine("Sort Order:");
+        Console.WriteLine("  1. Category (Domestic first, then International)");
+        Console.WriteLine("  2. Price (ascending within each category)");
+
+        var sortedTourSummaries = tourSummaries
+            .OrderBy(t => t.Category)           // Sort by Category (Domestic comes before International alphabetically)
+            .ThenBy(t => t.Price)               // Then sort by Price within each category
+            .ToList();
+
+        // STEP 4: DISPLAY in clean format
+        Console.WriteLine("\n========================================");
+        Console.WriteLine("     MARKET ANALYSIS SUMMARY REPORT");
+        Console.WriteLine("========================================");
+        Console.WriteLine("\nFiltered Tours (Price > Rs. 10,000 AND Duration > 4 days)");
+        Console.WriteLine("Sorted by: Category (Domestic → International), then Price");
+        Console.WriteLine("\n" + new string('-', 90));
+
+        string currentCategory = "";
+        int count = 1;
+
+        foreach (var summary in sortedTourSummaries)
+        {
+            // Print category header when it changes
+            if (currentCategory != summary.Category)
+            {
+                currentCategory = summary.Category;
+                Console.WriteLine($"\n{currentCategory.ToUpper()} TOURS:");
+                Console.WriteLine(new string('-', 90));
+                count = 1;
+            }
+
+            Console.WriteLine($"{count}. {summary}");
+            count++;
+        }
+
+        Console.WriteLine("\n" + new string('-', 90));
+
+        // STEP 5: ADDITIONAL STATISTICS
+        Console.WriteLine("\n--- SUMMARY STATISTICS ---");
+
+        var domesticTours = sortedTourSummaries.Where(t => t.Category == "Domestic").ToList();
+        var internationalTours = sortedTourSummaries.Where(t => t.Category == "International").ToList();
+
+        Console.WriteLine($"\nDomestic Tours: {domesticTours.Count}");
+        if (domesticTours.Any())
+        {
+            Console.WriteLine($"  Average Price: Rs. {domesticTours.Average(t => t.Price):F2}");
+            Console.WriteLine($"  Highest Price: Rs. {domesticTours.Max(t => t.Price):F2}");
+            Console.WriteLine($"  Lowest Price: Rs. {domesticTours.Min(t => t.Price):F2}");
+        }
+
+        Console.WriteLine($"\nInternational Tours: {internationalTours.Count}");
+        if (internationalTours.Any())
+        {
+            Console.WriteLine($"  Average Price: Rs. {internationalTours.Average(t => t.Price):F2}");
+            Console.WriteLine($"  Highest Price: Rs. {internationalTours.Max(t => t.Price):F2}");
+            Console.WriteLine($"  Lowest Price: Rs. {internationalTours.Min(t => t.Price):F2}");
+        }
+
+        Console.WriteLine($"\nTotal Revenue (Filtered Tours): Rs. {sortedTourSummaries.Sum(t => t.Price):F2}");
+
+        Console.WriteLine("\n========================================");
+        Console.WriteLine("         END OF REPORT");
+        Console.WriteLine("========================================");
+
 
     }
 }
